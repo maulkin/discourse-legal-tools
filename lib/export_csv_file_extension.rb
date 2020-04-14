@@ -356,12 +356,12 @@ module ExtendedDownloadExportExtension
   def user_external_accounts_fields
     @user_external_accounts_fields ||= begin
       fields = []
-      fields.concat GOOGLE.map { |f| "google_user_infos.#{f}" } if GoogleUserInfo.exists?(user_id: archive_user.id)
+      #fields.concat GOOGLE.map { |f| "google_user_infos.#{f}" } if GoogleUserInfo.exists?(user_id: archive_user.id)
       fields.concat ASSOCIATED.map { |f| "user_associated_accounts.#{f}" } if UserAssociatedAccount.exists?(user_id: archive_user.id)
-      fields.concat GITHUB.map { |f| "github_user_infos.#{f}" } if GithubUserInfo.exists?(user_id: archive_user.id)
-      fields.concat INSTAGRAM.map { |f| "instagram_user_infos.#{f}" } if InstagramUserInfo.exists?(user_id: archive_user.id)
-      fields.concat OAUTH.map { |f| "oauth2_user_infos.#{f}" } if Oauth2UserInfo.exists?(user_id: archive_user.id)
-      fields.concat OPEN_ID.map { |f| "user_open_ids.#{f}" } if UserOpenId.exists?(user_id: archive_user.id)
+      #fields.concat GITHUB.map { |f| "github_user_infos.#{f}" } if GithubUserInfo.exists?(user_id: archive_user.id)
+      #fields.concat INSTAGRAM.map { |f| "instagram_user_infos.#{f}" } if InstagramUserInfo.exists?(user_id: archive_user.id)
+      #fields.concat OAUTH.map { |f| "oauth2_user_infos.#{f}" } if Oauth2UserInfo.exists?(user_id: archive_user.id)
+      #fields.concat OPEN_ID.map { |f| "user_open_ids.#{f}" } if UserOpenId.exists?(user_id: archive_user.id)
       fields.concat SSO.map { |f| "single_sign_on_records.#{f}" } if SingleSignOnRecord.exists?(user_id: archive_user.id)
       fields
     end
