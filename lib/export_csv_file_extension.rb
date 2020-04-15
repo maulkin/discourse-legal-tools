@@ -512,6 +512,9 @@ module ExtendedDownloadExportExtension
   def user_post_timings
     PostTiming.where(user_id: archive_user.id)
       .select(POST_TIMINGS)
+      .map do |timings|
+        POST_TIMINGS.map { |k| search.attributes[k] }
+    end
   end
 
   def user_profile_views
