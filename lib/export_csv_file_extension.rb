@@ -513,7 +513,7 @@ module ExtendedDownloadExportExtension
     PostTiming.where(user_id: archive_user.id)
       .select(POST_TIMINGS)
       .map do |timings|
-        POST_TIMINGS.map { |k| search.attributes[k] }
+        POST_TIMINGS.map { |k| timings.attributes[k] }
     end
   end
 
