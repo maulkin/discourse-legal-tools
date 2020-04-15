@@ -185,6 +185,7 @@ module ExtendedDownloadExportExtension
   ]
 
   TOPIC_VIEWS = [
+    'topic_id',
     'title',
     'viewed_at',
     'ip_address'
@@ -226,6 +227,12 @@ module ExtendedDownloadExportExtension
     15 => 'Solved',
     16 => 'Assigned'
   }
+
+  POST_TIMINGS = [
+    'topic_id',
+    'post_number',
+    'msecs'
+  ]
 
   def user_archive_export(&block)
     return enum_for(:user_archive_export) unless block_given?
@@ -318,6 +325,10 @@ module ExtendedDownloadExportExtension
     separator('Topic Link Clicks').each { |l| block.call l }
     block.call TOPIC_LINK_CLICKS
     user_topic_link_clicks.each { |l| block.call l }
+
+    separator('Post Timings').each { |l| block.call l }
+    block.call POST_TIMINGS 
+    user_post_timings.each { |l| block.call l }
 
     separator('Profile Views').each { |l| block.call l }
     block.call PROFILE_VIEWS
@@ -500,6 +511,11 @@ module ExtendedDownloadExportExtension
     TOPIC_LINK_CLICKS.map do |f|
       f === 'url' ? 'topic_links.url' : f
     end
+  end
+
+  def user_post_timings
+    PostTiming.where(user_id: archive_user.id)
+      .select(POST_TIMINGS)
   end
 
   def user_profile_views
