@@ -429,13 +429,19 @@ module ExtendedDownloadExportExtension
   end
 
   def user_auth_tokens
-    tokens = UserAuthToken.where(user_id: archive_user.id)
+    UserAuthToken.where(user_id: archive_user.id)
       .select(AUTH_TOKEN)
+      .map do |tokens|
+        AUTH_TOKEN.map { |k| tokens.attributes[k] }
+      end
   end
 
   def user_auth_token_logs
-    logs = UserAuthTokenLog.where(user_id: archive_user.id)
+    UserAuthTokenLog.where(user_id: archive_user.id)
       .select(AUTH_TOKEN_LOGS)
+      .map do |token_logs|
+        AUTH_TOKEN_LOGS.map { |k| token_logs.attributes[k] }
+      end
   end
 
   def user_actions
